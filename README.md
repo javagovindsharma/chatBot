@@ -61,6 +61,7 @@ http://localhost:8080
 ```
 
 ### 🎥 Live Demo
+
 <p align="center">
-  <img src="assets/chat_app_demo_hd.gif" width="800"/>
+  <img src="https://raw.githubusercontent.com/javagovindsharma/chatBot/main/assets/chat_app_demo_hd.gif?raw=true" width="800"/>
 </p>
