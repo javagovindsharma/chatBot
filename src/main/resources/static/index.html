@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background:#343541; color:white; font-family:sans-serif; }
+        .chat { height:85vh; overflow:auto; padding:20px; }
+        .user { text-align:right; background:#0b93f6; margin:10px; padding:10px; border-radius:10px; }
+        .bot { text-align:left; background:#444654; margin:10px; padding:10px; border-radius:10px; }
+        .bot h1, .bot h2, .bot h3 {   margin-top: 10px;  }
+        .bot ul {   padding-left: 20px; }
+        .bot code {   background:#222;  padding:3px 6px;   border-radius:5px; }
+        .input-container {  position: fixed; bottom: 10px; left: 10px;  width: calc(100% - 20px);    display: flex;    gap: 10px;}
+        button { width: 80px; height: 40px; border-radius: 8px; border: none;  background-color: #4CAF50; color: white; cursor: pointer;}
+        #message {
+    flex: 1;  height: 40px; padding: 8px; border-radius: 8px; border: 1px solid #ccc;box-sizing: border-box; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<div class="chat" id="chat"></div>
+<div class="input-container">
+    <input type="text" id="message" placeholder="Type here..." />
+    <button onclick="send()">Send</button>
+</div>
+
+<script>
+    let socket = new WebSocket("ws://localhost:8080/chat");
+    let currentBotDiv = null;
+ let fullMessage = "";
+    socket.onmessage = function(event) {
+
+       fullMessage += event.data;   // append karo
+       currentBotDiv.innerHTML = marked.parse(fullMessage);
+    };
+
+    function send() {
+        let msg = document.getElementById("message").value;
+        let chat = document.getElementById("chat");
+        chat.innerHTML += "<div class='user'>" + msg + "</div>";
+        currentBotDiv = document.createElement("div");
+        currentBotDiv.className = "bot";
+        chat.appendChild(currentBotDiv);
+         fullMessage = "";
+        socket.send(msg);
+        document.getElementById("message").value = "";
+    }
+</script>
+
+</body>
+</html>
