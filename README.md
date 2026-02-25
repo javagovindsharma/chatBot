@@ -59,3 +59,8 @@ mvn spring-boot:run
 ```
 http://localhost:8080
 ```
+
+### 🎥 Live Demo
+<p align="center">
+  <img src="assets/chat_app_demo_hd.gif" width="800"/>
+</p>
